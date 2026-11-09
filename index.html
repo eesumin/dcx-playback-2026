@@ -9,12 +9,28 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer;paddin
 .big{font-weight:500;letter-spacing:-.045em;line-height:.9;margin:0}.it{font-family:var(--s);font-style:italic;font-weight:400;letter-spacing:-.02em}
 .tag{font-size:.7rem;font-weight:500;letter-spacing:.17em;text-transform:uppercase;opacity:.75}
 nav{position:fixed;inset:0 0 auto 0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:calc(18px + env(safe-area-inset-top)) 4vw 18px;mix-blend-mode:difference;color:#fff;pointer-events:none}
-nav>*{pointer-events:auto}nav div{display:flex;gap:clamp(8px,1.6vw,22px)}nav a{color:#fff;text-decoration:none;font-size:.78rem;letter-spacing:.1em;min-width:28px;min-height:28px;display:grid;place-items:center;position:relative}nav a:hover{text-decoration:underline;text-underline-offset:5px}
+nav>*{pointer-events:auto}nav a{color:#fff;text-decoration:none;font-size:.78rem;letter-spacing:.1em;min-width:28px;min-height:28px;display:grid;place-items:center;position:relative}
+nav .section-nav{position:fixed;right:max(12px,calc(3vw - 22px));top:50%;transform:translateY(-50%);display:flex;flex-direction:column}
+nav .section-nav a{width:44px;height:44px;flex:none}
+nav .nav-dot{display:block;width:5px;height:5px;border-radius:50%;background:currentColor;opacity:.35;transition:opacity .25s ease,transform .25s ease,box-shadow .25s ease}
+nav a[aria-current] .nav-dot{opacity:1;transform:scale(1.2);box-shadow:0 0 0 4px rgba(255,255,255,.15)}
+nav .nav-label{position:absolute;right:44px;top:50%;display:flex;align-items:center;gap:10px;white-space:nowrap;font-size:.65rem;letter-spacing:.08em;line-height:1.4;opacity:0;transform:translate(4px,-50%);transition:opacity .25s ease,transform .25s ease;pointer-events:none}
+nav .nav-label b{font-weight:500;opacity:.55;font-variant-numeric:tabular-nums}
+nav .section-nav a:is([aria-current],:hover,:focus-visible) .nav-label{opacity:1;transform:translate(0,-50%)}
+nav .section-nav a:is(:hover,:focus-visible) .nav-dot{opacity:1}
+@media(max-width:700px){nav .section-nav{right:max(2px,env(safe-area-inset-right))}nav .nav-label{right:40px;font-size:.6rem;gap:7px}}
+@media(prefers-reduced-motion:reduce){nav .nav-dot,nav .nav-label{transition:none}}
 section{position:relative}
-#s1{min-height:100svh;padding:16vh 4vw 6vh;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden}
+#s1{min-height:100svh;padding:0;display:block;overflow:hidden}
+.hero-title{position:absolute;left:50%;top:50%;width:max-content;transform:translate(-50%,-50%)}
 .h1{margin:0;font-size:clamp(5.5rem,23vw,22rem)}.h1 .ln{display:block;white-space:nowrap}.h1 .ln:nth-child(2){font-size:.62em;color:var(--org);padding-left:15vw;margin-top:.04em}
 .ch{display:inline-block;will-change:transform,filter}
-.intro{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;flex-wrap:wrap}.intro p{max-width:30ch;margin:0}
+.scroll-cue{position:absolute;left:50%;bottom:max(24px,calc(4vh + env(safe-area-inset-bottom)));transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:10px;opacity:0;white-space:nowrap}
+.scroll-cue .tag{font-size:.62rem;letter-spacing:.24em;opacity:.75}
+.cue-motion{display:flex;flex-direction:column;align-items:center;gap:7px;animation:cue-drift 2.2s ease-in-out infinite}
+.cue-arrow{width:8px;height:8px;border-right:1px solid var(--org);border-bottom:1px solid var(--org);transform:rotate(45deg)}
+.cue-line{width:1px;height:24px;background:linear-gradient(var(--org),rgba(236,107,63,0))}
+@keyframes cue-drift{0%,100%{transform:translateY(0)}50%{transform:translateY(5px)}}
 #s2{height:520vh}.pin{position:sticky;top:0;height:100svh;overflow:hidden}
 .stat{position:absolute;visibility:hidden;display:flex;flex-direction:column;gap:1rem}.stat .n{font-size:clamp(8rem,27vw,26rem);font-weight:300;letter-spacing:-.06em}.stat .n small{font-size:.4em;font-family:var(--s);font-style:italic;font-weight:400}
 .stat:nth-child(odd){left:4vw;bottom:8vh}.stat:nth-child(even){right:4vw;top:16vh;text-align:right;align-items:flex-end}
@@ -41,8 +57,8 @@ section{position:relative}
 #s7{padding:22vh 4vw 12vh}#s7 h2{font-size:clamp(3.5rem,9vw,8rem);margin-bottom:10vh}
 .aw{overflow:hidden;border-top:2px solid rgba(242,238,230,.35);position:relative;padding:1.6rem 0;display:flex;justify-content:space-between;align-items:baseline;gap:1rem;transition:background .4s,color .4s,padding .5s}.aw:hover,.aw:focus-visible{background:var(--org);color:var(--ink);padding:1.6rem 2vw}.aw .awi{display:block;font-size:clamp(1.8rem,5vw,4.6rem);font-weight:400;letter-spacing:-.04em;line-height:1.02}.aw .wn{font-family:var(--s);font-style:italic;opacity:0;transform:translateX(-20px);transition:.5s;white-space:nowrap}.aw:hover .wn,.aw:focus-visible .wn{opacity:1;transform:none}
 .end{margin-top:22vh;text-align:center;font-size:clamp(3.5rem,12vw,11rem)}.end .ln{display:block}
-@media(max-width:700px){.imgs{grid-template-columns:1fr}.stat:nth-child(even){top:20vh}.intro{flex-direction:column;align-items:flex-start}.pf figcaption{opacity:1;bottom:-2.2rem}.aw .wn{opacity:1;transform:none;font-size:.8rem}}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+@media(max-width:700px){.imgs{grid-template-columns:1fr}.stat:nth-child(even){top:20vh}.pf figcaption{opacity:1;bottom:-2.2rem}.aw .wn{opacity:1;transform:none;font-size:.8rem}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}.cue-motion{animation:none}}
 
 .cov::after{content:"";position:absolute;inset:0;background:linear-gradient(155deg,rgba(255,255,255,.2),transparent 42%,rgba(0,0,0,.2));pointer-events:none}
 .card{height:auto;aspect-ratio:1/1;width:clamp(220px,22vw,320px)}
@@ -123,6 +139,25 @@ html{scrollbar-gutter:stable}html.lenis-stopped{overscroll-behavior:none}
 .ml .wn{position:absolute;top:100%;left:50%;margin-top:.5rem;transform:translate(-50%,-6px);background:#141830;color:#F0EBE0;padding:.3rem .8rem;border-radius:99px;white-space:nowrap;opacity:0;max-height:none;overflow:visible;transition:opacity .4s,transform .5s cubic-bezier(.16,1,.3,1);font-size:.85rem}
 .ml:hover .wn,.ml:focus-visible .wn,.ml[aria-expanded=true] .wn{opacity:1;transform:translate(-50%,0)}
 .fz{position:absolute;left:0;right:0;height:75svh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2rem}#s7{padding:0}#s7 .end{margin:0}.cl2{margin:0;font-size:clamp(1.2rem,2.4vw,2rem);opacity:.85}
+#s4 .cov::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at var(--light-x,50%) var(--light-y,45%),rgba(255,255,255,.22),transparent 65%);box-shadow:inset 0 0 0 1px rgba(255,255,255,.48);opacity:0;transition:opacity .35s ease}
+#s4 .pc.is-active .cov::before{opacity:1}
+#s4 .hd{align-items:flex-start;gap:24px;pointer-events:none}
+#s4 .hd>.tag{max-width:25ch;text-align:right;line-height:1.6}
+#s4 .shelf-position{position:absolute;left:4vw;right:4vw;bottom:3vh;z-index:3;display:flex;align-items:center;justify-content:space-between;gap:24px;pointer-events:none}
+#s4 .shelf-marks{display:flex;align-items:center;gap:4px;pointer-events:auto}
+#s4 .shelf-marks button{position:relative;width:28px;height:44px;display:flex;align-items:center;flex-direction:column;justify-content:flex-end;gap:6px;text-align:center;flex:none}
+#s4 .shelf-marks i{display:block;width:1px;height:7px;background:currentColor;opacity:.25;transition:height .35s ease,opacity .35s ease}
+#s4 .shelf-marks button span{font-size:.55rem;line-height:1;height:10px;opacity:0;transform:translateY(3px);transition:opacity .25s ease,transform .25s ease}
+#s4 .shelf-marks button.is-current i{height:22px;opacity:.9}
+#s4 .shelf-marks button:hover i,#s4 .shelf-marks button:focus-visible i{height:16px;opacity:.7}
+#s4 .shelf-marks button:is(.is-current,:hover,:focus-visible) span{opacity:.85;transform:none}
+#s4 .shelf-marks button:disabled{cursor:default;opacity:.35}
+#s4 .shelf-caption{display:flex;gap:18px;align-items:center;font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;min-width:0}
+#s4 .shelf-caption span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:45vw}
+#s4 .pc .hv{will-change:transform}
+#s4 .rig.dim .pc:not(.sel) .card{opacity:.2;transition:opacity .5s ease}
+@media(max-width:700px){#s4 .shelf-position{flex-direction:column-reverse;align-items:stretch;gap:12px;bottom:max(20px,env(safe-area-inset-bottom))}#s4 .shelf-caption{justify-content:space-between}#s4 .shelf-marks{gap:0;justify-content:space-between}#s4 .shelf-marks button{width:auto;min-width:0;flex:1}#s4 .shelf-marks button span{font-size:.5rem}}
+@media(prefers-reduced-motion:reduce){#s4 .cov::before,#s4 .shelf-marks i,#s4 .shelf-marks button span{transition:none}}
 </style></head><body><div id="root"></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
@@ -142,7 +177,7 @@ function Hero(){const r=useRef();useEffect(()=>{const c=gsap.context(()=>{
  const R=gsap.utils.random,off=(a,b)=>R([-1,1])*R(a,b),all=gsap.utils.toArray('.ch'),chs=gsap.utils.shuffle([...all]);
  gsap.set('.ch',{opacity:0});
  gsap.to('.h1',{yPercent:-5,ease:'none',scrollTrigger:{trigger:r.current,start:'top top',end:'bottom top',scrub:true}});
- if(RM){gsap.set('.ch,.intro p',{opacity:1});gsap.set('.intro .tag',{opacity:.75});return}
+ if(RM){gsap.set('.ch',{opacity:1});gsap.set('.scroll-cue',{opacity:.75});return}
  const act=()=>{if(!HOVER)return;const sec=r.current,ring=sec.querySelector('.hc'),R0=Math.max(280,innerWidth*.22),O={duration:.6,ease:'power3.out'};
   const q=all.map(ch=>({x:gsap.quickTo(ch,'x',O),y:gsap.quickTo(ch,'y',O),r:gsap.quickTo(ch,'rotation',O),s:gsap.quickTo(ch,'scale',O)})),rx=gsap.quickTo(ring,'x',{duration:.35,ease:'power3.out'}),ry=gsap.quickTo(ring,'y',{duration:.35,ease:'power3.out'});
   const mv=e=>{rx(e.clientX);ry(e.clientY);all.forEach((ch,i)=>{const b=ch.getBoundingClientRect(),cx=b.left+b.width/2-gsap.getProperty(ch,'x'),cy=b.top+b.height/2-gsap.getProperty(ch,'y'),dx=e.clientX-cx,dy=e.clientY-cy,k=Math.pow(Math.max(0,1-Math.hypot(dx,dy)/R0),1.5);q[i].x(dx*.28*k);q[i].y(dy*.28*k);q[i].r(dx/R0*16*k);q[i].s(1+.07*k)})};
@@ -151,12 +186,11 @@ function Hero(){const r=useRef();useEffect(()=>{const c=gsap.context(()=>{
  const go=()=>{const tl=gsap.timeline({delay:.3,onComplete:act}),sg={each:.085,from:'start'};
   tl.fromTo(chs,{x:()=>off(220,820),y:()=>off(140,520),scale:()=>R(.25,2.4),rotation:()=>R(-55,55),filter:'blur(30px)'},{x:0,y:0,scale:1,rotation:0,filter:'blur(0px)',duration:2.5,ease:'power4.out',stagger:sg},0)
    .to(chs,{opacity:1,duration:1.5,ease:'power1.out',stagger:sg},0)
-   .to('.intro p',{opacity:1,duration:1.1,ease:'power2.out'},'>-.2')
-   .to('.intro .tag',{opacity:.75,duration:1.1,ease:'power2.out'},'<.2')};
+  .to('.scroll-cue',{opacity:.75,duration:1.1,ease:'power2.out'},'>-.2')};
  document.fonts&&document.fonts.ready?document.fonts.ready.then(go):go();
 },r);return()=>c.revert()},[]);
-return h`<section id="s1" ref=${r}><h1 className="big h1"><${Chars} t="2026"/><${Chars} t="Playback" k="it"/></h1>
-<div className="intro"><p>[SAMPLE INTRO] A short welcome to DCx Playback 2026 goes here. Replace with real copy.</p><span className="tag">Scroll to begin ↓</span></div><span className="hc" aria-hidden="true"></span></section>`}
+return h`<section id="s1" ref=${r}><div className="hero-title"><h1 className="big h1"><${Chars} t="2026"/><${Chars} t="Playback" k="it"/></h1></div>
+<div className="scroll-cue"><span className="tag">SCROLL TO EXPLORE</span><span className="cue-motion" aria-hidden="true"><i className="cue-arrow"></i><i className="cue-line"></i></span></div><span className="hc" aria-hidden="true"></span></section>`}
 
 const STATS=[['48','','Projects delivered'],['120','+','Moments shared'],['12','','Partners worked with'],['7','','Unofficial awards']];
 function Numbers(){const r=useRef();useEffect(()=>{const c=gsap.context(()=>{
@@ -189,52 +223,63 @@ return h`<section id="s3" className="lt" ref=${r}><div className="ltp"><aside cl
 const NM=['ONE','TWO','THREE','FOUR','FIVE','SIX','SEVEN','EIGHT','NINE','TEN','ELEVEN','TWELVE','THIRTEEN','FOURTEEN'];
 const CL=[['#4352D9','#F0EBE0'],['#EC6B3F','#141830'],['#E8E1D1','#141830'],['#26308F','#F0EBE0'],['#A9B4F0','#141830'],['#F4A27F','#141830'],['#F0EBE0','#141830']];
 const PR=NM.map((n,i)=>['[PROJECT '+n+']',...CL[(i*3)%7]]);
-const CAM={P:1200,rx:14,ry:-40,rz:5};
-function Projects({open}){const r=useRef(),sc=useRef(),rig=useRef(),P=useRef({p:0,sel:-1,busy:0,S:0,hov:-1,ptr:null}),st=useRef([]),N=PR.length;
-const geo=()=>{const W=innerWidth,H=innerHeight,m=W<700;return{S:m?Math.min(W*.55,H*.3):Math.min(W*.27,H*.46,380),dx:W*(m?.22:.12),dy:H*(m?.085:.1),dz:m?230:190,x0:-W*(m?.26:.3),y0:H*(m?.17:.22)}};
-const base=(i,p)=>{const g=geo(),u=i-p*(N-1),o=Math.min(1,Math.max(0,(u+1.2)/.8))*Math.min(1,Math.max(0,(N-.5-u)/3));return{x:g.x0+u*g.dx,y:g.y0-u*g.dy,z:-u*g.dz,rx:CAM.rx,ry:CAM.ry,rz:CAM.rz,o}};
-const ap=i=>{const s=st.current[i],e=s.el;e.style.transform=`translate3d(${s.x}px,${s.y}px,${s.z}px) rotateX(${s.rx}deg) rotateY(${s.ry}deg) rotateZ(${s.rz}deg)`;e.style.opacity=s.o;e.style.visibility=s.o<.01?'hidden':'visible'};
+const CAM={P:1600,rx:-22,ry:-40};
+function Projects({open}){const r=useRef(),sc=useRef(),rig=useRef(),position=useRef(),P=useRef({p:0,sel:-1,busy:0,S:0,hov:-1,ptr:null,focus:-1,current:-1}),st=useRef([]),N=PR.length;
+const geo=()=>{const W=innerWidth,H=innerHeight,S=W<700?Math.min(W*.48,H*.27):Math.min(W*.24,H*.36,320);return{S,dz:S*.275}};
+const travel=p=>{const step=p*(N-1);return RM?step:step-Math.sin(step*Math.PI*2)*.08};
+const base=(i,p)=>{const g=geo(),u=i-travel(p),o=Math.min(1,Math.max(0,(u+.9)/.65))*Math.min(1,Math.max(0,(N-.5-u)/3));return{x:0,y:0,z:-u*g.dz,rx:0,ry:0,rz:0,o}};
+const ap=i=>{const s=st.current[i],e=s.el;e.style.transform=`translate3d(${s.x}px,${s.y}px,${s.z}px) rotateY(${s.ry}deg) rotateX(${s.rx}deg) rotateZ(${s.rz}deg)`;e.style.opacity=s.o;e.style.visibility=s.o<.01?'hidden':'visible'};
 const quad=(s,S)=>{const d=Math.PI/180,cz=Math.cos(s.rz*d),sz=Math.sin(s.rz*d),cy=Math.cos(s.ry*d),sy=Math.sin(s.ry*d),cx=Math.cos(s.rx*d),sx=Math.sin(s.rx*d);
- return[[-1,-1],[1,-1],[1,1],[-1,1]].map(([a,b])=>{let X=a*S/2,Y=b*S/2,Z=0,t;t=X*cz-Y*sz;Y=X*sz+Y*cz;X=t;t=X*cy+Z*sy;Z=-X*sy+Z*cy;X=t;t=Y*cx-Z*sx;Z=Y*sx+Z*cx;Y=t;X+=s.x;Y+=s.y;Z+=s.z;const k=CAM.P/(CAM.P-Z);return[X*k,Y*k,Z]})};
+ const hx=s.hv?+gsap.getProperty(s.hv,'x'):0,hy=s.hv?+gsap.getProperty(s.hv,'y'):0,hz=s.hv?+gsap.getProperty(s.hv,'z'):0;
+ return[[-1,-1],[1,-1],[1,1],[-1,1]].map(([a,b])=>{let X=a*S/2+hx,Y=b*S/2+hy,Z=hz,t;t=X*cz-Y*sz;Y=X*sz+Y*cz;X=t;t=Y*cx-Z*sx;Z=Y*sx+Z*cx;Y=t;t=X*cy+Z*sy;Z=-X*sy+Z*cy;X=t;const v=P.current.view.transformPoint({x:X+s.x,y:Y+s.y,z:Z+s.z}),k=CAM.P/(CAM.P-v.z);return[v.x*k,v.y*k,v.z]})};
 const pick=(px,py)=>{let best=-1,bz=-1e9;st.current.forEach((s,i)=>{if(!(s.o>.25))return;const q=quad(s,P.current.S);let pos=0,neg=0;for(let k=0;k<4;k++){const a=q[k],b=q[(k+1)%4],c=(b[0]-a[0])*(py-a[1])-(b[1]-a[1])*(px-a[0]);c>=0?pos++:neg++}if(pos==4||neg==4){const z=(q[0][2]+q[1][2]+q[2][2]+q[3][2])/4;if(z>bz){bz=z;best=i}}});return best};
-const lift=(i,y)=>{if(i<0)return;const e=st.current[i].el;gsap.to(e.querySelector('.hv'),{y:y?-44:0,z:y?90:0,duration:y?.6:.85,ease:'power3.out',overwrite:'auto'});gsap.to(e.querySelector('.cov'),{boxShadow:y?'0 40px 50px -14px rgba(0,0,0,.65)':'0 10px 24px rgba(0,0,0,.35)',duration:.6,ease:'power2.out'})};
-const hover=()=>{const S=P.current;if(!HOVER||S.sel>-1||!S.ptr)return;const b=sc.current.getBoundingClientRect(),i=pick(S.ptr.x-(b.left+b.width/2),S.ptr.y-(b.top+b.height/2));if(i!==S.hov){lift(S.hov,0);S.hov=i;lift(i,1);sc.current.style.cursor=i>-1?'pointer':''}};
-const upd=p=>{P.current.p=p;const g=geo();if(P.current.S!==g.S){P.current.S=g.S;rig.current.style.setProperty('--S',g.S+'px')}st.current.forEach((s,i)=>{if(P.current.sel===i)return;Object.assign(s,base(i,p));ap(i)});hover()};
+const indicate=()=>{const S=P.current,i=S.sel>-1?S.sel:S.focus>-1?S.focus:S.hov>-1?S.hov:Math.round(travel(S.p));position.current.querySelectorAll('button').forEach(el=>el.disabled=S.sel>-1||!!S.busy);if(i===S.current)return;S.current=i;position.current.querySelector('.shelf-number').textContent=String(i+1).padStart(2,'0')+' / '+N;const name=position.current.querySelector('.shelf-name');name.textContent=PR[i][0];if(!RM)gsap.fromTo(name,{y:5,opacity:0},{y:0,opacity:1,duration:.25,ease:'power2.out',overwrite:true});position.current.querySelectorAll('button').forEach((el,j)=>{el.classList.toggle('is-current',i===j);if(i===j)el.setAttribute('aria-current','true');else el.removeAttribute('aria-current')})};
+const lift=(i,y)=>{if(i<0)return;const s=st.current[i],e=s.el,active=!!y||P.current.focus===i;s.hv=s.hv||e.querySelector('.hv');if(!s.moveX){const options={duration:.45,ease:'power3.out'};s.moveX=gsap.quickTo(s.hv,'x',options);s.moveY=gsap.quickTo(s.hv,'y',options);s.moveZ=gsap.quickTo(s.hv,'z',options)}e.classList.toggle('is-active',active);if(RM){gsap.set(s.hv,{x:0,y:0,z:0});return}s.moveX(0);s.moveY(active?-48:0);s.moveZ(0)};
+const hover=()=>{const S=P.current;if(!HOVER||S.sel>-1||!S.ptr)return;const b=sc.current.getBoundingClientRect(),i=pick(S.ptr.x-(b.left+b.width/2),S.ptr.y-(b.top+b.height/2));if(i!==S.hov){lift(S.hov,0);S.hov=i;lift(i,1);sc.current.style.cursor=i>-1?'pointer':'';indicate()}if(i>-1&&!RM){const s=st.current[i],e=s.el,rect=e.getBoundingClientRect(),px=Math.max(0,Math.min(1,(S.ptr.x-rect.left)/rect.width)),py=Math.max(0,Math.min(1,(S.ptr.y-rect.top)/rect.height));e.style.setProperty('--light-x',px*100+'%');e.style.setProperty('--light-y',py*100+'%')}};
+const upd=p=>{P.current.p=p;const g=geo();if(P.current.S!==g.S){P.current.S=g.S;rig.current.style.setProperty('--S',g.S+'px');const view=new DOMMatrix().translate(0,0,100).rotate(CAM.rx,0,0).rotate(0,CAM.ry,0).translate(0,0,(N-1)*g.S*.2/2);P.current.view=view;rig.current.style.transform=view.toString()}st.current.forEach((s,i)=>{if(P.current.sel===i)return;Object.assign(s,base(i,p));ap(i)});hover();indicate()};
+const seek=i=>{const S=P.current;if(S.sel>-1||S.busy||!S.trigger)return;const index=Math.max(0,Math.min(N-1,i)),target=S.trigger.start+(S.trigger.end-S.trigger.start)*index/(N-1);S.ptr=null;lift(S.hov,0);S.hov=-1;sc.current.style.cursor='';if(L)L.scrollTo(target,{duration:.8,force:true});else window.scrollTo({top:target,behavior:RM?'instant':'smooth'})};
 useEffect(()=>{const pr={v:0},S=P.current;sc.current.style.perspective=CAM.P+'px';const c=gsap.context(()=>{
  gsap.set('.ip .mk1>span',{yPercent:110});
- ScrollTrigger.create({trigger:r.current,pin:true,end:()=>'+='+innerHeight*6,invalidateOnRefresh:true,onRefresh:()=>upd(pr.v),onUpdate:s=>gsap.to(pr,{v:s.progress,duration:.9,ease:'power3.out',overwrite:true,onUpdate:()=>upd(pr.v)})});
- upd(0)},r);
- const el=sc.current,mv=e=>{S.ptr={x:e.clientX,y:e.clientY};hover()},lv=()=>{S.ptr=null;lift(S.hov,0);S.hov=-1;el.style.cursor=''};
+ const follow=gsap.quickTo(pr,'v',{duration:.45,ease:'power3.out',onUpdate:()=>upd(pr.v)}),sync=s=>{follow.tween.pause();pr.v=s.progress;upd(pr.v)};
+ S.trigger=ScrollTrigger.create({trigger:r.current,pin:true,end:()=>'+='+innerHeight*6,invalidateOnRefresh:true,onRefresh:sync,onUpdate:s=>{if(RM){pr.v=s.progress;upd(pr.v)}else follow(s.progress)}});
+ sync(S.trigger)},r);
+ let pointerFrame=0;
+ const el=sc.current,mv=e=>{S.ptr={x:e.clientX,y:e.clientY};if(!pointerFrame)pointerFrame=requestAnimationFrame(()=>{pointerFrame=0;hover()})},lv=()=>{S.ptr=null;lift(S.hov,0);S.hov=-1;el.style.cursor='';indicate()};
  const ck=e=>{if(S.sel>-1){if(!e.target.closest('.ip'))close();return}const b=el.getBoundingClientRect(),i=pick(e.clientX-(b.left+b.width/2),e.clientY-(b.top+b.height/2));if(i>-1)sel(i)};
- const k=e=>{if(e.key==='Escape'&&!document.querySelector('.ov'))close()};
+ const k=e=>{if(document.querySelector('.ov'))return;if(e.key==='Escape')close();if(e.key==='Tab'&&S.sel>-1){e.preventDefault();if(!S.busy){const buttons=[...st.current[S.sel].el.querySelectorAll('.ip button')],index=buttons.indexOf(document.activeElement);buttons[(index+(e.shiftKey?-1:1)+buttons.length)%buttons.length].focus({preventScroll:true})}}if(S.sel<0&&r.current.contains(document.activeElement)&&['ArrowLeft','ArrowRight','Home','End'].includes(e.key)){e.preventDefault();const index=e.key==='Home'?0:e.key==='End'?N-1:Math.max(0,Math.min(N-1,S.current+(e.key==='ArrowRight'?1:-1)));seek(index);position.current.querySelectorAll('button')[index].focus({preventScroll:true})}};
  el.addEventListener('pointermove',mv);el.addEventListener('pointerleave',lv);el.addEventListener('click',ck);addEventListener('keydown',k);
- return()=>{el.removeEventListener('pointermove',mv);el.removeEventListener('pointerleave',lv);el.removeEventListener('click',ck);removeEventListener('keydown',k);c.revert()}},[]);
+ return()=>{cancelAnimationFrame(pointerFrame);st.current.forEach(s=>{s.moveX?.tween.kill();s.moveY?.tween.kill();s.moveZ?.tween.kill()});el.removeEventListener('pointermove',mv);el.removeEventListener('pointerleave',lv);el.removeEventListener('click',ck);removeEventListener('keydown',k);c.revert()}},[]);
 const sel=i=>{const S=P.current;if(S.sel>-1||S.busy)return;S.sel=i;S.busy=1;lift(S.hov,0);S.hov=-1;const s=st.current[i],el=s.el,ip=el.querySelector('.ip'),cv=el.querySelector('.cov'),D=RM?.01:1,u=()=>ap(i);
- L&&L.stop();window.PCOPEN=1;rig.current.classList.add('dim');el.classList.add('sel');
- gsap.to(el.querySelector('.hv'),{y:0,z:0,duration:.3,overwrite:'auto'});gsap.to(cv,{boxShadow:'0 10px 24px rgba(0,0,0,.35)',duration:.3});
- const sk=Math.min(innerHeight*.78,innerWidth*.88,560)/geo().S,tz=CAM.P*(1-1/sk);
- gsap.timeline().to(s,{z:s.z+90,y:s.y-34,duration:.45*D,ease:'power2.out',onUpdate:u})
-  .to(s,{x:0,y:0,z:tz,duration:1.4*D,ease:'power3.inOut',onUpdate:u})
-  .to(s,{rx:0,ry:0,rz:0,duration:1.2*D,ease:'power2.inOut',onUpdate:u},'<0.1')
-  .to(cv,{opacity:0,duration:.5*D,ease:'power2.inOut'},'>0.3')
+ L&&L.stop();window.PCOPEN=1;rig.current.classList.add('dim');el.classList.add('sel');st.current.forEach(card=>card.el.querySelector('.cb').disabled=true);indicate();
+ s.moveX?.tween.kill();s.moveY?.tween.kill();s.moveZ?.tween.kill();s.moveX=s.moveY=s.moveZ=null;
+ gsap.to(el.querySelector('.hv'),{x:0,y:0,z:0,duration:RM?0:.2,overwrite:'auto'});gsap.to(cv,{boxShadow:'0 10px 24px rgba(0,0,0,.35)',duration:RM?0:.2});
+ const sk=Math.min(innerHeight*.78,innerWidth*.88,560)/geo().S,tz=CAM.P*(1-1/sk),target=P.current.view.inverse().transformPoint({x:0,y:0,z:tz});
+ if(RM){Object.assign(s,{x:target.x,y:target.y,z:target.z,rx:-CAM.rx,ry:-CAM.ry,rz:0});ap(i);gsap.set(cv,{opacity:0});gsap.set(ip,{visibility:'visible'});gsap.set(ip.querySelectorAll('.mk1>span'),{yPercent:0});gsap.set(ip.querySelectorAll('.ipb,.ix'),{opacity:1,y:0});S.busy=0;ip.querySelector('.ix').focus({preventScroll:true});return}
+ gsap.timeline().to(s,{z:s.z+55,y:s.y-18,duration:.25*D,ease:'power2.out',onUpdate:u})
+  .to(s,{x:target.x,y:target.y,z:target.z,duration:.9*D,ease:'power3.inOut',onUpdate:u})
+  .to(s,{rx:-CAM.rx,ry:-CAM.ry,rz:0,duration:.8*D,ease:'power2.inOut',onUpdate:u},'<0.05')
+  .to(cv,{opacity:0,duration:.3*D,ease:'power2.inOut'},'>0.12')
   .set(ip,{visibility:'visible'})
-  .to(ip.querySelectorAll('.ipr .mk1>span'),{yPercent:0,duration:.8*D,ease:'power4.out'})
-  .to(ip.querySelectorAll('.ipt .mk1>span'),{yPercent:0,duration:1.1*D,ease:'power4.out',stagger:.14*D},'-=0.35')
-  .fromTo(ip.querySelectorAll('.ipb,.ix'),{y:16},{y:0,opacity:1,duration:.9*D,ease:'power3.out',stagger:.12*D},'-=0.4')
-  .add(()=>{S.busy=0})};
+  .to(ip.querySelectorAll('.ipr .mk1>span'),{yPercent:0,duration:.5*D,ease:'power4.out'})
+  .to(ip.querySelectorAll('.ipt .mk1>span'),{yPercent:0,duration:.7*D,ease:'power4.out',stagger:.08*D},'-=0.3')
+  .fromTo(ip.querySelectorAll('.ipb,.ix'),{y:12},{y:0,opacity:1,duration:.5*D,ease:'power3.out',stagger:.08*D},'-=0.35')
+  .add(()=>{S.busy=0;ip.querySelector('.ix').focus({preventScroll:true})})};
 const close=()=>{const S=P.current;if(S.sel<0||S.busy)return;S.busy=1;const i=S.sel,s=st.current[i],el=s.el,ip=el.querySelector('.ip'),D=RM?.01:1,b=base(i,S.p),u=()=>ap(i);
+ const restore=()=>{Object.assign(s,b);ap(i);S.sel=-1;S.busy=0;rig.current.classList.remove('dim');el.classList.remove('sel');st.current.forEach(card=>card.el.querySelector('.cb').disabled=false);window.PCOPEN=0;L&&L.start();el.querySelector('.cb').focus({preventScroll:true});hover();indicate()};
+ if(RM){gsap.set(ip.querySelectorAll('.ix,.ipb'),{opacity:0});gsap.set(ip.querySelectorAll('.mk1>span'),{yPercent:110});gsap.set(ip,{visibility:'hidden'});gsap.set(el.querySelector('.cov'),{opacity:1});restore();return}
  gsap.timeline().to(ip.querySelectorAll('.ix,.ipb'),{opacity:0,duration:.3*D}).to(ip.querySelectorAll('.mk1>span'),{yPercent:-110,duration:.5*D,ease:'power3.in',stagger:.04*D},'<')
   .set(ip.querySelectorAll('.mk1>span'),{yPercent:110}).set(ip,{visibility:'hidden'})
   .to(el.querySelector('.cov'),{opacity:1,duration:.45*D,ease:'power2.out'})
   .to(s,{x:b.x,y:b.y,z:b.z,duration:1.3*D,ease:'power3.inOut',onUpdate:u},'<0.1')
   .to(s,{rx:b.rx,ry:b.ry,rz:b.rz,duration:1.1*D,ease:'power2.inOut',onUpdate:u},'<')
-  .add(()=>{Object.assign(s,b);ap(i);S.sel=-1;S.busy=0;rig.current.classList.remove('dim');el.classList.remove('sel');window.PCOPEN=0;L&&L.start();hover()})};
+  .add(restore)};
 return h`<section id="s4" ref=${r}><div className="hd"><h2 className="big it">The Shelf</h2><span className="tag">01 — 14 · Scroll to move through the collection →</span></div>
 <div className="sc" ref=${sc}><div className="rig" ref=${rig}>${PR.map((p,i)=>h`<div className="pc" key=${i} ref=${el=>{if(el)(st.current[i]=st.current[i]||{}).el=el}}><div className="hv"><div className="card">
-<button className="cb" aria-label=${'Select '+p[0]} onFocus=${()=>lift(i,1)} onBlur=${()=>lift(i,0)} onClick=${()=>sel(i)}><span className="cov" style=${{background:p[1],color:p[2]}}><span className="tag">${String(i+1).padStart(2,'0')} · [PARTNER]</span><b>${p[0]}</b></span></button>
-<div className="ip" style=${{background:p[1],color:p[2]}}><div className="ipr"><span className="mk1"><span className="tag">${String(i+1).padStart(2,'0')} · [PARTNER]</span></span><button className="ix" onClick=${close}>Back ×</button></div>
+<button className="cb" aria-label=${'Select '+p[0]} onFocus=${()=>{P.current.focus=i;lift(i,1);indicate()}} onBlur=${()=>{P.current.focus=-1;lift(i,0);indicate()}} onClick=${()=>sel(i)}><span className="cov" style=${{background:p[1],color:p[2]}}><span className="tag">${String(i+1).padStart(2,'0')} · [PARTNER]</span><b>${p[0]}</b></span></button>
+<div className="ip" role="dialog" aria-modal="true" aria-label=${p[0]} style=${{background:p[1],color:p[2]}}><div className="ipr"><span className="mk1"><span className="tag">${String(i+1).padStart(2,'0')} · [PARTNER]</span></span><button className="ix" onClick=${close}>Back ×</button></div>
 <h3 className="ipt">${p[0].split(' ').map((w,j)=>h`<span className="mk1 ln2" key=${j}><span>${w}</span></span>`)}</h3>
-<div className="ipb"><p>[SAMPLE] A short description of this project goes here. Replace with real copy.</p><button className="ex" onClick=${()=>!P.current.busy&&open(i,st.current[i].el.querySelector('.card'))}>Explore Project →</button></div></div></div></div></div>`)}</div></div></section>`}
+<div className="ipb"><p>[SAMPLE] A short description of this project goes here. Replace with real copy.</p><button className="ex" onClick=${()=>!P.current.busy&&open(i,st.current[i].el.querySelector('.card'))}>Explore Project →</button></div></div></div></div></div>`)}</div></div>
+<div className="shelf-position" ref=${position}><div className="shelf-marks" role="group" aria-label="Project index">${PR.map((project,i)=>h`<button key=${i} aria-label=${'View '+project[0]} title=${project[0]} onClick=${()=>seek(i)}><i aria-hidden="true"></i><span aria-hidden="true">${String(i+1).padStart(2,'0')}</span></button>`)}</div><div className="shelf-caption" aria-hidden="true"><span className="shelf-number">01 / 14</span><span className="shelf-name">${PR[0][0]}</span></div></div></section>`}
 
 function Detail({d,done}){const o=useRef(),k=PR[d.i],cl=useRef();
 useEffect(()=>{L&&L.stop();const R=d.rect;gsap.set(o.current,{top:R.top,left:R.left,width:R.width,height:R.height});
@@ -349,12 +394,13 @@ h`<div className="jr2" style=${{height:HC*dm.h}}><h2 className="jt2 big it" styl
 ${G.pts.map((q,i)=>h`<div className="mk" key=${i} style=${{left:q.x,top:q.y}}><i className="mp"></i><div className=${'mw '+(q.x>dm.w/2?'L':'R')}><button className=${'ml v'+(i%3)} aria-expanded=${o==i} onClick=${()=>setO(o==i?null:i)}><span className="tag">Award 0${i+1}</span><b>${AW[i]}</b><span className="wn">winner: [TBC]</span></button></div></div>`)}${fin}</div>`;
 return h`<section id="s7" ref=${r}>${stage}</section>`}
 
-function App(){const [d,setD]=useState(null);
+function App(){const [d,setD]=useState(null),[active,setActive]=useState('s1');
 useEffect(()=>{if(!RM&&window.Lenis){L=new Lenis({lerp:.085,wheelMultiplier:.95});L.on('scroll',ScrollTrigger.update);gsap.ticker.add(t=>L.raf(t*1000));gsap.ticker.lagSmoothing(0)}
  SEC.forEach(([id,,,bg,fg])=>ScrollTrigger.create({trigger:'#'+id,start:'top 55%',end:'bottom 55%',onToggle:s=>s.isActive&&gsap.to(document.body,{backgroundColor:bg,color:fg,duration:1.1,ease:'power2.inOut',overwrite:true})}));
- setTimeout(()=>ScrollTrigger.refresh(),600);if(document.fonts)document.fonts.ready.then(()=>ScrollTrigger.refresh())},[]);
-const go=(e,id)=>{e.preventDefault();const t=document.getElementById(id),y=id=='s4'||id=='s2'?t.offsetTop+t.closest('body').scrollTop:0;L?L.scrollTo('#'+id,{duration:1.6,easing:x=>1-Math.pow(1-x,4)}):t.scrollIntoView({behavior:'smooth'})};
-return h`<main><nav><a href="#s1" onClick=${e=>go(e,'s1')} style=${{fontWeight:600,letterSpacing:'-.03em',fontSize:'1rem'}}>DCx Playback 2026</a><div>${SEC.map(s=>h`<a key=${s[0]} href=${'#'+s[0]} title=${s[2]} aria-label=${s[2]} onClick=${e=>go(e,s[0])}>${s[1]}</a>`)}</div></nav>
+ const navigation=SEC.map(([id])=>{const section=document.getElementById(id),trigger=section.parentElement.classList.contains('pin-spacer')?section.parentElement:section;return ScrollTrigger.create({trigger,start:'top center',end:'bottom center',onToggle:s=>{if(s.isActive)setActive(id)},onRefresh:s=>{if(s.isActive)setActive(id)}})});
+ setTimeout(()=>ScrollTrigger.refresh(),600);if(document.fonts)document.fonts.ready.then(()=>ScrollTrigger.refresh());return()=>navigation.forEach(trigger=>trigger.kill())},[]);
+const go=(e,id)=>{e.preventDefault();const t=document.getElementById(id),y=id=='s4'||id=='s2'?t.offsetTop+t.closest('body').scrollTop:0;L?L.scrollTo('#'+id,{duration:1.6,easing:x=>1-Math.pow(1-x,4)}):t.scrollIntoView({behavior:RM?'instant':'smooth'})};
+return h`<main><nav aria-label="Section navigation"><a href="#s1" onClick=${e=>go(e,'s1')} style=${{fontWeight:600,letterSpacing:'-.03em',fontSize:'1rem'}}>DCx Playback 2026</a><div className="section-nav">${SEC.map(s=>h`<a key=${s[0]} href=${'#'+s[0]} aria-label=${s[1]+' '+s[2]} aria-current=${active===s[0]?'location':undefined} onClick=${e=>go(e,s[0])}><span className="nav-label" aria-hidden="true"><b>${s[1]}</b><span>${s[2]}</span></span><span className="nav-dot" aria-hidden="true"></span></a>`)}</div></nav>
 <${Hero}/><${Numbers}/><${Note}/><${Projects} open=${(i,el)=>setD({i,el,rect:el.querySelector('.cov').getBoundingClientRect()})}/><${Moments}/><${Feed}/><${Awards}/>
 ${d&&h`<${Detail} d=${d} done=${()=>{setD(null);if(window.PCOPEN&&L)L.stop()}}/>`}</main>`}
 ReactDOM.createRoot(document.getElementById('root')).render(h`<${App}/>`);
